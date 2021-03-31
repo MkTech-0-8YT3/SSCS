@@ -11,7 +11,7 @@ namespace Persistence.Context
     public interface ISSCSDbContext
     {
         DatabaseFacade Database { get; }
-        public DbSet<Student> Accounts { get; set; }
+        public DbSet<Student> Students { get; set; }
         Task<int> SaveChangesAsync();
     }
 }

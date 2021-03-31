@@ -11,7 +11,7 @@ namespace Persistence.Context
     {
         public SSCSDbContext(DbContextOptions<SSCSDbContext> options) : base(options) { }
 
-        public DbSet<Student> Accounts { get; set; }
+        public DbSet<Student> Students { get; set; }
 
         public Task<int> SaveChangesAsync()
         {
