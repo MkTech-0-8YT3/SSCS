@@ -1,15 +1,17 @@
-﻿using PCSC;
+﻿using Common.DataModels.DtoModels;
+using PCSC;
 using PCSC.Monitoring;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Client
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
+            var simpleRestClient = new SimpleRestClient();
+            simpleRestClient.CreateTestStudent();
+
             var readerName = "Gemplus USB SmartCard Reader 0";
             var contextFactory = ContextFactory.Instance;
             var monitorFactory = MonitorFactory.Instance;
@@ -17,23 +19,28 @@ namespace Client
             var monitor = monitorFactory.Create(SCardScope.System);
 
             monitor.CardInserted += (sender, args) =>
-                Console.WriteLine($"Cart ATR: {GetReadableCardAtr(args.Atr)}");
+            {
+                var cardNumber = new CardNumber(GetReadableCardAtr(args.Atr));
+                var response = simpleRestClient.GetStudentDetailsByCardNumber(cardNumber);
+                Console.WriteLine("Response from server:");
+                Console.WriteLine(response.Content);
+            };
             
             monitor.Start(readerName);
             
-            Console.ReadKey(); // key to exit
+            Console.ReadKey(); // press any key to exit
 
             monitor.Cancel();
             monitor.Dispose();
+            simpleRestClient.DeleteTestStudent();
         }
 
         private static string GetReadableCardAtr(byte[] atr)
         {
-            if (atr == null || atr.Length == 0)
+            if (atr is null || atr.Length == 0)
             {
                 return "";
             }
-
             return BitConverter.ToString(atr);
         }
     }
