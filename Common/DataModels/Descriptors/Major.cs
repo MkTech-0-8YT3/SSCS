@@ -6,8 +6,12 @@ namespace Common.DataModels.Descriptors
 {
     public enum Major
     {
-        InformationTechnology,
-        Mechatronics,
-        PL_Philology
+        Inf,
+        BiEM,
+        AiR,
+        IP,
+        MiBM,
+        Mec,
+        ZiIP
     }
 }

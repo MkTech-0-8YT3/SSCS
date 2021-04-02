@@ -1,9 +1,6 @@
 ﻿using Common.DataModels.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Persistence.Context
@@ -12,6 +9,7 @@ namespace Persistence.Context
     {
         DatabaseFacade Database { get; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
         Task<int> SaveChangesAsync();
     }
 }

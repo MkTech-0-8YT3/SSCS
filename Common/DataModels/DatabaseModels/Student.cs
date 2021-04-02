@@ -15,7 +15,9 @@ namespace Common.DataModels.DatabaseModels
         public TypeOfStudies TypeOfStudies { get; set; }
         public Department Department { get; set; }
         public Major Major { get; set; }
+        public int DegreeLevel { get; set; }
         public int Semester { get; set; }
+        public string Group { get; set; }
         [Required]
         public string CardNumber { get; set; }
     }

@@ -1,8 +1,5 @@
 ﻿using Common.DataModels.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Persistence.Context
@@ -12,6 +9,7 @@ namespace Persistence.Context
         public SSCSDbContext(DbContextOptions<SSCSDbContext> options) : base(options) { }
 
         public DbSet<Student> Students { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
         public Task<int> SaveChangesAsync()
         {

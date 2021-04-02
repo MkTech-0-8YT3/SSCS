@@ -2,9 +2,9 @@
 
 namespace Common.DataModels.DtoModels
 {
-    public class CardNumber
+    public class CardNumberDto
     {
-        public CardNumber(string cardIdNumber)
+        public CardNumberDto(string cardIdNumber)
         {
             CardIdNumber = cardIdNumber;
         }

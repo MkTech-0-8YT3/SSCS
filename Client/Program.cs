@@ -20,8 +20,9 @@ namespace Client
 
             monitor.CardInserted += (sender, args) =>
             {
-                var cardNumber = new CardNumber(GetReadableCardAtr(args.Atr));
-                var response = simpleRestClient.GetStudentDetailsByCardNumber(cardNumber);
+                Console.WriteLine("Card ATR: " + GetReadableCardAtr(args.Atr));
+                var cardNumber = new CardNumberDto(GetReadableCardAtr(args.Atr));
+                var response = simpleRestClient.GetStudentScheduleForCurrentWeek(cardNumber);
                 Console.WriteLine("Response from server:");
                 Console.WriteLine(response.Content);
             };

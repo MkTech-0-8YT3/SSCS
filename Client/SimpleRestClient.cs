@@ -22,9 +22,15 @@ namespace Client
             var request = new RestRequest("createTest", Method.POST);
             return _restClient.Post(request);
         }
-        public IRestResponse GetStudentDetailsByCardNumber(CardNumber cardNumber)
+        public IRestResponse GetStudentDetailsByCardNumber(CardNumberDto cardNumber)
         {
             var request = new RestRequest("getStudent", Method.POST);
+            request.AddJsonBody(cardNumber);
+            return _restClient.Post(request);
+        }
+        public IRestResponse GetStudentScheduleForCurrentWeek(CardNumberDto cardNumber)
+        {
+            var request = new RestRequest("getSchedule", Method.POST);
             request.AddJsonBody(cardNumber);
             return _restClient.Post(request);
         }

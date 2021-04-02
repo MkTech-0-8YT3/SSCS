@@ -1,12 +1,11 @@
+using Common.DataModels.DatabaseModels;
+using Common.IcsImporter;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence.Context;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ServerAPI
@@ -32,9 +31,24 @@ namespace ServerAPI
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             var context = services.GetRequiredService<ISSCSDbContext>();
+            var testDataLoader = new CalendarMapper();
+            var classes = testDataLoader.ReadEventsFromCalendarFile(@"C:\code\temp\test.ics");
+            //add test schedule to database
+            var testSchedule = new Schedule()
+            {
+                Classes = classes,
+                Department = Common.DataModels.Descriptors.Department.WBMiI,
+                Major = Common.DataModels.Descriptors.Major.Inf,
+                DegreeLevel = 1,
+                Semester = 6,
+                Group = "gr1",
+                TypeOfStudies = Common.DataModels.Descriptors.TypeOfStudies.Extramural
+            };
             try
             {
                 await context.Database.EnsureCreatedAsync();
+                await context.Schedules.AddAsync(testSchedule);
+                await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
