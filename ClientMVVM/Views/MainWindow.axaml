@@ -6,12 +6,26 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ClientMVVM.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ClientMVVM">
+        Title="SSCS"
+        Background="LightGray">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    
+  <StackPanel Orientation="Vertical">
+    <TextBlock Text="{Binding StudentName}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+    <ListBox Items="{Binding ClassEvents}" HorizontalAlignment="Center">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="Bisque" HorizontalAlignment="Center" Padding="2">
+            <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" Background="BlanchedAlmond" HorizontalAlignment="Stretch"></TextBlock>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    
+  </StackPanel>
 
 </Window>
